@@ -1,10 +1,14 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-gateway
   labels:
     app: spring-petclinic
 spec:
+  selector:
+    matchLabels:
+      app: spring-petclinic
+      tier: api-gateway
   strategy:
     type: Recreate
   template:
@@ -14,7 +18,7 @@ spec:
         tier: api-gateway
     spec:
       containers:
-        - image: hongjs/spring-petclinic-api-gateway:latest
+        - image: effectivemadness/spring-petclinic-api-gateway:latest
           imagePullPolicy: Always
           name: api-gateway
           ports:
@@ -32,7 +36,6 @@ spec:
     - port: 80
       protocol: TCP
       targetPort: 8080
-      nodePort: 32002
   selector:
     app: spring-petclinic
     tier: api-gateway

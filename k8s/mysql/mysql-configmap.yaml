@@ -5,4 +5,4 @@ metadata:
   labels:
     app: spring-petclinic
 data:
-  hostinfo: mysql:3306
+  hostinfo: whatap-poc-db.cluster-cua8od55v8cn.ap-northeast-2.rds.amazonaws.com:3306

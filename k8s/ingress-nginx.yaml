@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: api-ingress-nginx
@@ -7,11 +7,14 @@ spec:
   - http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: api-gateway
-          servicePort: 80
+          service: 
+            name: api-gateway
+            port: 
+              number: 80
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -22,18 +25,30 @@ spec:
   - http:
       paths:
       - path: /api/vet(/.*)
+        pathType: Prefix
         backend:
-          serviceName: vets-service
-          servicePort: 80
+          service:
+            name: vets-service
+            port:
+              number: 80
       - path: /api/visit(/.*)
+        pathType: Prefix
         backend:
-          serviceName: visits-service
-          servicePort: 80
+          service:
+            name: visits-service
+            port:
+              number: 80
       - path: /api/customer(/.*)
+        pathType: Prefix
         backend:
-          serviceName: customers-service
-          servicePort: 80
+          service:
+            name: customers-service
+            port:
+              number: 80
       - path: /api/gateway(/.*)
+        pathType: Prefix
         backend:
-          serviceName: api-gateway
-          servicePort: 80
+          service:
+            name: api-gateway
+            port:       
+              number: 80

@@ -1,10 +1,14 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: customers
   labels:
     app: spring-petclinic
 spec:
+  selector:
+    matchLabels:
+      app: spring-petclinic
+      tier: customers
   strategy:
     type: Recreate
   template:
@@ -14,7 +18,7 @@ spec:
         tier: customers
     spec:
       containers:
-        - image: hongjs/spring-petclinic-customers-service:latest
+        - image: effectivemadness/spring-petclinic-customers-service:latest
           imagePullPolicy: Always
           name: customers
           ports:
@@ -32,7 +36,6 @@ spec:
     - port: 80
       protocol: TCP
       targetPort: 8080
-      nodePort: 32003
   selector:
     app: spring-petclinic
     tier: customers
